@@ -24,6 +24,13 @@ import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
 
 public class InternalAccessHandler implements Handler {
 
+  /***
+   * 网关实现Hanlder，检查访问的接口是否具备定义的tags，如果具备，认为是内部接口，不允许访问。
+   * 检查接口是否定义了名称为”INTERNAL”的tags，如果包含，则不允许访问
+   * @param invocation
+   * @param asyncReponse
+   * @throws Exception
+   */
   @Override
   public void handle(Invocation invocation, AsyncResponse asyncReponse) throws Exception {
     if (invocation.getOperationMeta().getSwaggerOperation().getTags() != null
